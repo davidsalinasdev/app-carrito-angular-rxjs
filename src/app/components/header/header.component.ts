@@ -17,16 +17,29 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   public guitars: Guitars[] = [];
+  public cartTotal!: number;
+
   private suscription!: Subscription;
 
-  @Input() callBack!: (id: number) => void;
+
+  @Input() callBackDeleteItemCart!: (id: number) => void;
+  @Input() callBackIncreaseQuantity!: (id: number) => void;
+  @Input() callBackDecreaseQuantity!: (id: number) => void;
+  @Input() callBackClearCart!: () => void;
 
   constructor(private dataService: DataServices) { }
 
   ngOnInit(): void {
     // Suscrípcion para recibir los datos de DataServices
     this.suscription = this.dataService.getData().subscribe(item => {
+
+      // Recibimos los items
       this.guitars = item;
+
+      // Actualizamos el total del carrito
+
+      this.cartTotal = this.guitars.reduce((total, guitar) => total + (guitar.price * guitar.quantity!), 0)
+
     })
   }
 
@@ -34,7 +47,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
    * deleteItemCart(Enviando datos al padre)
   */
   public deleteItemCart(id: number) {
-    this.callBack(id);
+    this.callBackDeleteItemCart(id);
+  }
+
+  /**
+   * increaseQuantity(id:number)
+   */
+  public increaseQuantity(id: number) {
+    this.callBackIncreaseQuantity(id);
+  }
+
+  /**
+   * decreaseQuantity(id:number)  
+   */
+  public decreaseQuantity(id: number) {
+    this.callBackDecreaseQuantity(id);
+  }
+
+
+  /**
+   * clearCart
+   */
+  public clearCart() {
+    this.callBackClearCart()
   }
 
   // Destruimos la suscripción

@@ -1,7 +1,8 @@
 <!-- Componente principal app-padre -->
 
 <!-- Componente Header -->
-<app-header [callBack]="deleteItemCart"></app-header>
+<app-header [callBackDeleteItemCart]="deleteItemCart" [callBackIncreaseQuantity]="increaseQuantity"
+  [callBackDecreaseQuantity]="decreaseQuantity" [callBackClearCart]="clearCart"></app-header>
 <!-- FIN Componente Header -->
 
 <main class="container-xl mt-5">
@@ -13,7 +14,8 @@
     @for ( guitar of guitars; track guitar.id ){
 
     <!-- Enviando el item guitar a el componente hijo -->
-    <app-guitar class="col-md-6 col-lg-4 my-4 row align-items-center" [guitar]="guitar" [callBack]="addItemCart">
+    <app-guitar class="col-md-6 col-lg-4 my-4 row align-items-center" [guitar]="guitar"
+      [callBackAddItemCart]="addItemCart">
     </app-guitar>
 
     }@empty {

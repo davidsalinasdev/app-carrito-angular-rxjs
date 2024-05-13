@@ -20,6 +20,9 @@ export class AppComponent implements OnInit {
   public guitars: Guitars[] = [];
   public cart: Guitars[] = [];
 
+  public MAX_ITEM: number = 5;
+  public MIN_ITEM: number = 1;
+
   constructor(
     private servicesDbGuitar: DbGuitarService,
     private dataServices: DataServices
@@ -91,13 +94,73 @@ export class AppComponent implements OnInit {
   public deleteItemCart = (id: number) => {
 
     // Array methoth filter que NOMUTA el state
-    const newCart: Guitars[] = this.cart.filter(guitar => guitar.id !== id);
+    const updateCart: Guitars[] = this.cart.filter(guitar => guitar.id !== id);
 
     // Actualizamos nuestro carrito this.cart    
-    this.cart = newCart;
+    this.cart = updateCart;
+
+    // Servicio que envia los datos[] mediante el observable
+    this.dataServices.sendData(this.cart);
+
+  }
+
+  /**
+   * increaseQuantity
+   */
+  public increaseQuantity = (id: number) => {
+
+    const updatedCart = this.cart.map(item => {
+      if (item.id === id && item.quantity! < this.MAX_ITEM) {
+        return {
+          ...item,
+          quantity: item.quantity! + 1
+        }
+      }
+      return item;
+    })
+
+    // Actualizamos nuestro carrito this.cart
+    this.cart = updatedCart;
+
+    // Servicio que envia los datos[] mediante el observable
+    this.dataServices.sendData(this.cart);
+
+  }
+
+  /**
+   * decreaseQuantity
+   */
+  public decreaseQuantity = (id: number) => {
+
+    const updatedCart = this.cart.map(item => {
+      if (item.id === id && item.quantity! > this.MIN_ITEM) {
+        return {
+          ...item,
+          quantity: item.quantity! - 1
+        }
+      }
+      return item;
+    })
+
+    // Actualizamos nuestro carrito this.cart
+    this.cart = updatedCart;
 
     // Servicio que envia los datos[] mediante el observable
     this.dataServices.sendData(this.cart);
   }
 
+  /**
+   * clearCart
+   */
+  public clearCart = () => {
+
+    // Actualizamos nuestro carrito this.cart
+    this.cart = [];
+
+    // Servicio que envia los datos[] mediante el observable
+    this.dataServices.sendData(this.cart);
+  }
+
+
 }
+// 

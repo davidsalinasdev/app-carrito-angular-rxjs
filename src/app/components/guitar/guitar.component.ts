@@ -17,7 +17,7 @@ export class GuitarComponent implements OnInit {
     más tarde, pero no necesariamente en el momento de su declaración.
    */
   @Input() guitar!: Guitars;
-  @Input() callBack!: (guitar: Guitars) => void;
+  @Input() callBackAddItemCart!: (guitar: Guitars) => void;
 
   ngOnInit(): void {
     // console.log(this.guitar);
@@ -26,7 +26,7 @@ export class GuitarComponent implements OnInit {
   // Enviando datos al padre
   public addItemCart(guitar: Guitars) {
 
-    this.callBack(guitar);
+    this.callBackAddItemCart(guitar);
 
   }
 
