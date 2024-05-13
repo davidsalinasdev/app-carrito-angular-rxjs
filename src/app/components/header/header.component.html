@@ -14,7 +14,7 @@
 
              @if(this.guitars.length == 0) {
              <p class="text-center text-uppercase">El carrito esta vacio</p>
-             }
+             }@else{
 
              <table class="w-100 table">
                <thead>
@@ -55,9 +55,10 @@
                  }
                </tbody>
              </table>
-
              <p class="text-end">Total pagar: <span class="fw-bold">${{ this.cartTotal }}</span></p>
              <button class="btn btn-dark w-100 mt-3 p-2" (click)="clearCart()">Vaciar Carrito</button>
+             }
+
            </div>
          </div>
        </nav>
