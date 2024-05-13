@@ -2,7 +2,15 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+
+// Para permitir peticiones http 
+import { HttpClientModule } from '@angular/common/http';
+
+// Componentes de App(Principal-Main)
 import { AppComponent } from './app.component';
+
+// Modulo Components
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +18,10 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ComponentsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
